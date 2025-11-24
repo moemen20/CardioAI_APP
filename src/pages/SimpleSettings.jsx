@@ -20,7 +20,7 @@ import {
 import {
   Settings as SettingsIcon,
   Notifications as NotificationIcon,
-  Emergency as EmergencyIcon,
+  LocalHospital as EmergencyIcon,
   Sensors as SensorsIcon
 } from '@mui/icons-material';
 

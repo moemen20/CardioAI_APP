@@ -87,15 +87,13 @@ function DiagnosticAI() {
       // Appel à l'API backend
       const formData = new FormData();
       if (ecgImage) {
-        formData.append('ecg_image', ecgImage);
+        formData.append('ecgImage', ecgImage);
       }
-      
-      // Ajouter les données cliniques
-      Object.keys(patientData).forEach(key => {
-        formData.append(key, patientData[key]);
-      });
 
-      const response = await fetch('http://localhost:5000/analyze', {
+      // Ajouter les données cliniques en JSON
+      formData.append('patientData', JSON.stringify(patientData));
+
+      const response = await fetch('http://localhost:5000/api/analyze', {
         method: 'POST',
         body: formData
       });
@@ -152,8 +150,8 @@ function DiagnosticAI() {
   };
 
   return (
-    <Box sx={{ backgroundColor: '#f8fafc', minHeight: '100vh', py: 4 }}>
-      <Container maxWidth="lg">
+    <Box sx={{ backgroundColor: '#f8fafc', minHeight: '100vh', py: 2, px: 2, width: '100%', margin: 0 }}>
+      <Box sx={{ width: '100%', maxWidth: 'none' }}>
         {/* En-tête */}
         <Paper
           elevation={0}
@@ -449,7 +447,7 @@ function DiagnosticAI() {
             </Card>
           </Grid>
         </Grid>
-      </Container>
+      </Box>
     </Box>
   );
 }

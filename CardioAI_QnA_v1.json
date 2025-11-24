@@ -1,0 +1,116 @@
+{
+  "qnaList": [
+    {
+      "id": 1,
+      "questions": [
+        "J’ai une douleur thoracique depuis 30 minutes, que faire ?"
+      ],
+      "answer": "Les signes d’alerte d’un infarctus comprennent douleur thoracique oppressante, irradiant vers le bras ou la mâchoire, sueurs, nausées ou essoufflement. Si vous avez ces symptômes, n'allez pas seul au volant si possible. Appelez le service d'urgence et préparez les informations : antécédents, médicaments. En milieu hospitalier, ECG en 10 minutes et bilan biologique (troponine) sont réalisés.",
+      "shortAnswer": "Si la douleur est intense ou accompagnée de sueurs/essoufflement, appelez immédiatement le numéro d'urgence local ou rendez-vous aux urgences.",
+      "metadata": {
+        "source": "CardioAI_v1",
+        "tags": "urgence;IDM;patient",
+        "lang": "fr",
+        "audience": "patient"
+      }
+    },
+    {
+      "id": 2,
+      "questions": [
+        "Quels sont les signes d’un infarctus ?"
+      ],
+      "answer": "Douleur thoracique intense ou oppression, irradiation vers le bras gauche, la mâchoire ou le cou, sueurs froides, nausées, essoufflement. Les femmes et les diabétiques peuvent présenter des symptômes atypiques (fatigue, indigestion). En cas de doute, consulter rapidement.",
+      "shortAnswer": "Douleur thoracique intense, irradiation vers bras/mâchoire, sueurs, essoufflement.",
+      "metadata": {
+        "source": "CardioAI_v1",
+        "tags": "IDM;patient;education",
+        "lang": "fr",
+        "audience": "patient"
+      }
+    },
+    {
+      "id": 3,
+      "questions": [
+        "Qu’est-ce qu’un ECG et que montre‑t‑il ?"
+      ],
+      "answer": "L'ECG 12 dérivations enregistre l'activité électrique du cœur. Il permet de détecter un sus-décalage du segment ST (suggérant un infarctus), une ischémie, des anomalies du rythme (fibrillation auriculaire), et d'autres signes. Il est indolore et se fait en quelques minutes.",
+      "shortAnswer": "Un ECG enregistre l'activité électrique du cœur; il détecte arythmies et signes d'ischémie.",
+      "metadata": {
+        "source": "CardioAI_v1",
+        "tags": "exam;student;patient",
+        "lang": "fr",
+        "audience": "patient;student"
+      }
+    },
+    {
+      "id": 4,
+      "questions": [
+        "Comment prendre correctement ma tension à la maison ?"
+      ],
+      "answer": "Mesurez votre tension en position assise, bras soutenu au niveau du cœur, après 5 minutes de repos. Évitez café, tabac et exercice 30 minutes avant. Prenez 2-3 mesures à 1-2 minutes d'intervalle et notez les valeurs. Utilisez une manchette adaptée à la taille de votre bras.",
+      "shortAnswer": "Assis, bras à hauteur du cœur, au repos; répéter 2–3 mesures et noter.",
+      "metadata": {
+        "source": "CardioAI_v1",
+        "tags": "monitoring;patient",
+        "lang": "fr",
+        "audience": "patient"
+      }
+    },
+    {
+      "id": 5,
+      "questions": [
+        "Mon résultat de troponine est élevé, que cela signifie-t-il ?"
+      ],
+      "answer": "La troponine est un marqueur de lésion myocardique mais son interprétation dépend du contexte clinique et de l'assay utilisé. Causes possibles : infarctus, myocardite, insuffisance rénale. Indiquez la valeur chiffrée et la référence du laboratoire pour une interprétation précise.",
+      "shortAnswer": "Une troponine élevée peut indiquer une atteinte myocardique ; contactez un médecin pour interprétation.",
+      "metadata": {
+        "source": "CardioAI_v1",
+        "tags": "troponine;patient;doctor",
+        "lang": "fr",
+        "audience": "patient;doctor"
+      }
+    },
+    {
+      "id": 6,
+      "questions": [
+        "Je prends un anticoagulant, puis-je faire du sport ?"
+      ],
+      "answer": "La plupart des patients sous anticoagulants peuvent pratiquer une activité physique adaptée. Évitez les sports de contact à risque de blessure (football, boxe). Signalez tout saignement inhabituel à votre médecin et suivez les recommandations spécifiques selon le type d'anticoagulant.",
+      "shortAnswer": "En général oui, mais éviter les sports de contact; discutez avec votre médecin.",
+      "metadata": {
+        "source": "CardioAI_v1",
+        "tags": "anticoagulant;patient",
+        "lang": "fr",
+        "audience": "patient"
+      }
+    },
+    {
+      "id": 7,
+      "questions": [
+        "Quels examens pour suspicion d’insuffisance cardiaque ?"
+      ],
+      "answer": "Les examens de première ligne sont l'ECG, le dosage du BNP/NT-proBNP et l'échocardiographie pour évaluer la fonction ventriculaire. Selon le contexte, des bilans additionnels (ionogramme, fonction rénale, radiographie thoracique) peuvent être nécessaires.",
+      "shortAnswer": "ECG, BNP/NT-proBNP, échocardiographie.",
+      "metadata": {
+        "source": "CardioAI_v1",
+        "tags": "insuffisance;doctor;patient",
+        "lang": "fr",
+        "audience": "doctor;patient"
+      }
+    },
+    {
+      "id": 8,
+      "questions": [
+        "Que faire si mon rythme cardiaque est très rapide ?"
+      ],
+      "answer": "Une tachycardie soutenue accompagnée de symptômes (vertiges, syncope, douleur thoracique) nécessite une prise en charge urgente. Si la tachycardie est isolée et tolérée, planifier une consultation médicale afin d'évaluer la cause (FA, tachycardie supraventriculaire, hyperthyroïdie, etc.).",
+      "shortAnswer": "Si associé à vertiges, douleur ou syncope → appeler urgences immédiatement.",
+      "metadata": {
+        "source": "CardioAI_v1",
+        "tags": "rythme;emergency;patient",
+        "lang": "fr",
+        "audience": "patient"
+      }
+    }
+  ]
+}

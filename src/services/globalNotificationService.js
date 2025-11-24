@@ -175,6 +175,15 @@ class GlobalNotificationService {
   }
 
   /**
+   * Supprime toutes les notifications
+   */
+  clearAll() {
+    this.notifications = [];
+    this.saveNotifications();
+    this.notifyListeners();
+  }
+
+  /**
    * Obtient le nombre de notifications non lues
    */
   getUnreadCount() {

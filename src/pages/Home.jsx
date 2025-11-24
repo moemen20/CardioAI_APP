@@ -6,10 +6,13 @@ function Home() {
   
   const styles = {
     container: {
-      padding: '40px',
+      padding: '20px',
       fontFamily: 'Arial, sans-serif',
       backgroundColor: '#f5f5f5',
-      minHeight: '100vh'
+      minHeight: '100vh',
+      width: '100%',
+      margin: 0,
+      maxWidth: 'none'
     },
     header: {
       textAlign: 'center',
@@ -91,11 +94,10 @@ function Home() {
     <div style={styles.container}>
       {/* En-tête */}
       <div style={styles.header}>
-        <div style={styles.icon}>❤️</div>
-        <h1 style={styles.title}>CardioAI</h1>
+        <img src="/logo_black-removebg-preview.png" alt="" style={{width: '300px', height: '300px', margin: '20px 0'}} />
         <h2 style={styles.subtitle}>Intelligence Artificielle pour le Diagnostic Cardiaque</h2>
         <p style={styles.description}>
-          Analysez vos données cardiaques en temps réel avec notre système de monitoring IoT 
+          Analysez vos données cardiaques en temps réel avec notre système de monitoring IoT
           et obtenez un diagnostic précis grâce à notre modèle d'IA avancé.
         </p>
       </div>
@@ -126,8 +128,8 @@ function Home() {
             Analysez vos ECG et données cliniques avec notre modèle XResNet.
             Diagnostic précis et rapide basé sur l'intelligence artificielle.
           </p>
-          <Link 
-            to="/mode-selection" 
+          <Link
+            to="/diagnostic"
             style={styles.button}
             onMouseOver={(e) => e.target.style.backgroundColor = '#303f9f'}
             onMouseOut={(e) => e.target.style.backgroundColor = '#3f51b5'}
@@ -137,15 +139,31 @@ function Home() {
         </div>
       </div>
 
-      {/* Section Paramètres */}
+      {/* Section Historique */}
       <div style={styles.footer}>
         <div style={styles.icon}>⚙️</div>
+        <h3 style={styles.cardTitle}>📊 Historique des Sessions</h3>
+        <p style={styles.cardDescription}>
+          Consultez vos sessions de monitoring passées, exportez vos données et analysez vos tendances de santé
+        </p>
+        <Link
+          to="/session-history"
+          style={{...styles.button, backgroundColor: '#9c27b0'}}
+          onMouseOver={(e) => e.target.style.backgroundColor = '#7b1fa2'}
+          onMouseOut={(e) => e.target.style.backgroundColor = '#9c27b0'}
+        >
+          Voir l'Historique
+        </Link>
+      </div>
+
+      {/* Section Paramètres */}
+      <div style={styles.card}>
         <h3 style={styles.cardTitle}>Configuration</h3>
         <p style={styles.cardDescription}>
           Personnalisez votre expérience avec nos paramètres avancés
         </p>
-        <Link 
-          to="/settings" 
+        <Link
+          to="/settings"
           style={{...styles.button, backgroundColor: '#00bcd4'}}
           onMouseOver={(e) => e.target.style.backgroundColor = '#0097a7'}
           onMouseOut={(e) => e.target.style.backgroundColor = '#00bcd4'}

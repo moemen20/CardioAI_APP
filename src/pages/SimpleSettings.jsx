@@ -31,8 +31,8 @@ function SimpleSettings() {
   const [threshold, setThreshold] = useState(80);
 
   return (
-    <Container maxWidth="lg">
-      <Box sx={{ py: 4 }}>
+    <Box sx={{ width: '100%', margin: 0, maxWidth: 'none' }}>
+      <Box sx={{ py: 2, px: 2 }}>
         <Typography
           variant="h3"
           component="h1"
@@ -177,7 +177,7 @@ function SimpleSettings() {
           </Grid>
         </Grid>
       </Box>
-    </Container>
+    </Box>
   );
 }
 

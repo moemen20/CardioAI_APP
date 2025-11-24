@@ -19,11 +19,14 @@ function SimpleHeader() {
           <Button color="inherit" component={RouterLink} to="/">
             Accueil
           </Button>
-          <Button color="inherit" component={RouterLink} to="/mode-selection">
-            Diagnostic
+          <Button color="inherit" component={RouterLink} to="/diagnostic">
+            Diagnostic IA
           </Button>
           <Button color="inherit" component={RouterLink} to="/iot-monitoring">
             Monitoring IoT
+          </Button>
+          <Button color="inherit" component={RouterLink} to="/session-history">
+            Historique
           </Button>
           <Button color="inherit" component={RouterLink} to="/settings">
             Paramètres

@@ -80,15 +80,18 @@ function TopNotificationBar() {
   }
 
   return (
-    <Slide direction="down" in={show} mountOnEnter unmountOnExit>
+    <Slide direction="down" in={show} mountOnEnter unmountOnExit timeout={300}>
       <Box
         sx={{
           position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 1300, // Au-dessus de l'AppBar
-          boxShadow: 3
+          top: 70, // Sous la barre de navigation
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '90%',
+          maxWidth: '600px',
+          zIndex: 1200, // Sous la barre de navigation mais au-dessus du contenu
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
+          transition: 'all 0.3s ease-in-out'
         }}
       >
         <Alert
@@ -105,12 +108,35 @@ function TopNotificationBar() {
             </IconButton>
           }
           sx={{
-            borderRadius: 0,
+            borderRadius: 2,
+            backgroundColor: 'rgba(255, 255, 255, 0.95)', // Transparence
+            backdropFilter: 'blur(10px)', // Effet de flou
+            border: '1px solid rgba(255, 255, 255, 0.2)',
             '& .MuiAlert-message': {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
               width: '100%'
+            },
+            '&.MuiAlert-standardSuccess': {
+              backgroundColor: 'rgba(76, 175, 80, 0.95)',
+              color: 'white',
+              '& .MuiAlert-icon': { color: 'white' }
+            },
+            '&.MuiAlert-standardError': {
+              backgroundColor: 'rgba(244, 67, 54, 0.95)',
+              color: 'white',
+              '& .MuiAlert-icon': { color: 'white' }
+            },
+            '&.MuiAlert-standardWarning': {
+              backgroundColor: 'rgba(255, 152, 0, 0.95)',
+              color: 'white',
+              '& .MuiAlert-icon': { color: 'white' }
+            },
+            '&.MuiAlert-standardInfo': {
+              backgroundColor: 'rgba(33, 150, 243, 0.95)',
+              color: 'white',
+              '& .MuiAlert-icon': { color: 'white' }
             }
           }}
         >

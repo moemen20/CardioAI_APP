@@ -11,11 +11,15 @@ import ModeSelection from './pages/ModeSelection';
 import SimpleIoTMonitoring from './pages/SimpleIoTMonitoring';
 import SimpleSettings from './pages/SimpleSettings';
 import Test from './pages/Test';
+import DiagnosticAI from './pages/DiagnosticAI';
+import SessionHistory from './pages/SessionHistory';
 
 // Components - Version hybride stable
 import SimpleHeader from './components/SimpleHeader';
 import SimpleFooter from './components/SimpleFooter';
 import Layout from './components/Layout';
+import TopNotificationBar from './components/TopNotificationBar';
+import AzureHealthChatbot from './components/AzureHealthChatbot';
 
 // Theme configuration
 const theme = createTheme({
@@ -129,13 +133,15 @@ function App() {
       <Router>
         <Layout>
           <div className="app">
+            <TopNotificationBar />
             <SimpleHeader />
-            <main className="main-content" style={{ width: '100%', padding: 0 }}>
+            <main className="main-content" style={{ width: '100vw', padding: 0, margin: 0, maxWidth: 'none' }}>
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/mode-selection" element={<ModeSelection />} />
-                <Route path="/diagnostic" element={<Home />} />
+                <Route path="/diagnostic" element={<DiagnosticAI />} />
                 <Route path="/iot-monitoring" element={<SimpleIoTMonitoring />} />
+                <Route path="/session-history" element={<SessionHistory />} />
                 <Route path="/settings" element={<SimpleSettings />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/test" element={<Test />} />
@@ -143,6 +149,7 @@ function App() {
             </main>
             <SimpleFooter />
           </div>
+          <AzureHealthChatbot />
         </Layout>
       </Router>
     </ThemeProvider>

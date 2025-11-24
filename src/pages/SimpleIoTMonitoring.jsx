@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import globalNotificationService from '../services/globalNotificationService';
+import sessionHistoryService from '../services/sessionHistoryService';
 import {
   Box,
   Container,
@@ -36,42 +37,98 @@ function SimpleIoTMonitoring() {
     if (isMonitoring) {
       const interval = setInterval(() => {
         const newData = {
-          heartRate: Math.floor(Math.random() * 20) + 65, // 65-85
-          bloodPressure: `${Math.floor(Math.random() * 20) + 110}/${Math.floor(Math.random() * 15) + 70}`,
-          temperature: (Math.random() * 2 + 36).toFixed(1), // 36-38
-          oxygenSaturation: Math.floor(Math.random() * 5) + 95 // 95-100
+          heartRate: Math.floor(Math.random() * 50) + 70, // 70-120 BPM (plus de chances de dépasser 100)
+          bloodPressure: `${Math.floor(Math.random() * 40) + 110}/${Math.floor(Math.random() * 25) + 70}`,
+          temperature: (Math.random() * 3 + 36).toFixed(1), // 36-39°C (plus de chances de dépasser 37.5)
+          oxygenSaturation: Math.floor(Math.random() * 10) + 90 // 90-100% (plus de chances d'être < 95)
         };
 
         setSensorData(newData);
 
+        // Enregistrer les données dans la session courante
+        sessionHistoryService.addDataPoint(newData);
+
         // Générer des notifications basées sur les seuils
         if (newData.heartRate > 100) {
-          globalNotificationService.addNotification({
+          const alert = {
             type: 'warning',
-            title: 'Fréquence cardiaque élevée',
-            message: `BPM: ${newData.heartRate} - Seuil dépassé`,
-            severity: 'warning'
-          });
+            title: '⚠️ Fréquence cardiaque élevée',
+            message: `${newData.heartRate} BPM - Seuil normal dépassé (>100)`,
+            severity: 'warning',
+            sensor: 'heartRate',
+            value: newData.heartRate,
+            threshold: 100
+          };
+
+          globalNotificationService.addNotification(alert);
+          sessionHistoryService.addAlert(alert);
+        }
+
+        if (newData.heartRate < 60) {
+          const alert = {
+            type: 'warning',
+            title: '⚠️ Fréquence cardiaque faible',
+            message: `${newData.heartRate} BPM - Bradycardie détectée (<60)`,
+            severity: 'warning',
+            sensor: 'heartRate',
+            value: newData.heartRate,
+            threshold: 60
+          };
+
+          globalNotificationService.addNotification(alert);
+          sessionHistoryService.addAlert(alert);
         }
 
         if (newData.temperature > 37.5) {
-          globalNotificationService.addNotification({
+          const alert = {
             type: 'error',
-            title: 'Température élevée',
-            message: `${newData.temperature}°C - Fièvre détectée`,
-            severity: 'error'
-          });
+            title: '🌡️ Température élevée',
+            message: `${newData.temperature}°C - Fièvre détectée (>37.5°C)`,
+            severity: 'error',
+            sensor: 'temperature',
+            value: parseFloat(newData.temperature),
+            threshold: 37.5
+          };
+
+          globalNotificationService.addNotification(alert);
+          sessionHistoryService.addAlert(alert);
         }
 
         if (newData.oxygenSaturation < 95) {
-          globalNotificationService.addNotification({
+          const alert = {
             type: 'error',
-            title: 'Saturation faible',
-            message: `SpO2: ${newData.oxygenSaturation}% - Attention requise`,
-            severity: 'error'
-          });
+            title: '🫁 Saturation faible',
+            message: `SpO2: ${newData.oxygenSaturation}% - Hypoxémie (<95%)`,
+            severity: 'error',
+            sensor: 'oxygenSaturation',
+            value: newData.oxygenSaturation,
+            threshold: 95
+          };
+
+          globalNotificationService.addNotification(alert);
+          sessionHistoryService.addAlert(alert);
         }
-      }, 2000);
+
+        // Alertes pour la pression artérielle
+        const bpParts = newData.bloodPressure.split('/');
+        const systolic = parseInt(bpParts[0]);
+        const diastolic = parseInt(bpParts[1]);
+
+        if (systolic > 140 || diastolic > 90) {
+          const alert = {
+            type: 'warning',
+            title: '🩸 Hypertension détectée',
+            message: `${newData.bloodPressure} mmHg - Pression élevée`,
+            severity: 'warning',
+            sensor: 'bloodPressure',
+            value: `${systolic}/${diastolic}`,
+            threshold: '140/90'
+          };
+
+          globalNotificationService.addNotification(alert);
+          sessionHistoryService.addAlert(alert);
+        }
+      }, 3000); // Toutes les 3 secondes pour plus de notifications
 
       return () => clearInterval(interval);
     }
@@ -81,13 +138,33 @@ function SimpleIoTMonitoring() {
     const newState = !isMonitoring;
     setIsMonitoring(newState);
 
-    // Ajouter une notification
-    globalNotificationService.addNotification({
-      type: newState ? 'success' : 'info',
-      title: newState ? 'Monitoring démarré' : 'Monitoring arrêté',
-      message: newState ? 'Surveillance en temps réel activée' : 'Surveillance interrompue',
-      severity: newState ? 'success' : 'info'
-    });
+    if (newState) {
+      // Démarrer une nouvelle session
+      const sessionId = sessionHistoryService.startSession();
+      console.log('Session démarrée:', sessionId);
+
+      // Ajouter une notification
+      globalNotificationService.addNotification({
+        type: 'success',
+        title: '📊 Monitoring démarré',
+        message: 'Surveillance en temps réel activée - Session enregistrée',
+        severity: 'success'
+      });
+    } else {
+      // Terminer la session courante
+      const completedSession = sessionHistoryService.endSession();
+      if (completedSession) {
+        console.log('Session terminée:', completedSession.id);
+
+        // Ajouter une notification avec résumé
+        globalNotificationService.addNotification({
+          type: 'info',
+          title: '📊 Session sauvegardée',
+          message: `Durée: ${Math.floor(completedSession.duration / 60)}min - ${completedSession.summary.totalReadings} mesures`,
+          severity: 'info'
+        });
+      }
+    }
   };
 
   const getSensorStatus = (value, type) => {
@@ -104,8 +181,8 @@ function SimpleIoTMonitoring() {
   };
 
   return (
-    <Container maxWidth="lg">
-      <Box sx={{ py: 4 }}>
+    <Box sx={{ width: '100%', margin: 0, maxWidth: 'none' }}>
+      <Box sx={{ py: 2, px: 2 }}>
         <Typography
           variant="h3"
           component="h1"
@@ -265,7 +342,7 @@ function SimpleIoTMonitoring() {
           </Paper>
         )}
       </Box>
-    </Container>
+    </Box>
   );
 }
 

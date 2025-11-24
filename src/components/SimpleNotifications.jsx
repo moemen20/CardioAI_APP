@@ -73,6 +73,42 @@ function SimpleNotifications() {
     setIsDrawerOpen(false);
   };
 
+  const handleRemoveNotification = (notificationId) => {
+    globalNotificationService.removeNotification(notificationId);
+  };
+
+  const handleTestNotification = () => {
+    const testNotifications = [
+      {
+        type: 'info',
+        title: 'Test Information',
+        message: 'Ceci est une notification de test d\'information',
+        severity: 'info'
+      },
+      {
+        type: 'success',
+        title: 'Test Succès',
+        message: 'Ceci est une notification de test de succès',
+        severity: 'success'
+      },
+      {
+        type: 'warning',
+        title: 'Test Avertissement',
+        message: 'Ceci est une notification de test d\'avertissement',
+        severity: 'warning'
+      },
+      {
+        type: 'error',
+        title: 'Test Erreur',
+        message: 'Ceci est une notification de test d\'erreur',
+        severity: 'error'
+      }
+    ];
+
+    const randomNotification = testNotifications[Math.floor(Math.random() * testNotifications.length)];
+    globalNotificationService.addNotification(randomNotification);
+  };
+
   const getIcon = (severity) => {
     switch (severity) {
       case 'error':
@@ -176,7 +212,7 @@ function SimpleNotifications() {
             <Button
               size="small"
               variant="outlined"
-              onClick={addTestNotification}
+              onClick={handleTestNotification}
             >
               Test Notification
             </Button>
@@ -204,7 +240,7 @@ function SimpleNotifications() {
             <List sx={{ p: 0 }}>
               {notifications.map((notification, index) => (
                 <React.Fragment key={notification.id}>
-                  <ListItem sx={{ px: 0 }}>
+                  <ListItem sx={{ px: 0, alignItems: 'flex-start' }}>
                     <ListItemIcon>
                       {getIcon(notification.severity)}
                     </ListItemIcon>
@@ -233,6 +269,13 @@ function SimpleNotifications() {
                         </Box>
                       }
                     />
+                    <IconButton
+                      size="small"
+                      onClick={() => handleRemoveNotification(notification.id)}
+                      sx={{ ml: 1, mt: 0.5 }}
+                    >
+                      <CloseIcon fontSize="small" />
+                    </IconButton>
                   </ListItem>
                   {index < notifications.length - 1 && <Divider />}
                 </React.Fragment>
